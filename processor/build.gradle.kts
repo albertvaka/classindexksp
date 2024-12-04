@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
     id("com.palantir.git-version") version "3.1.0"
     id("maven-publish")
+    id("java-library")
 }
 
 val gitVersion: groovy.lang.Closure<String> by extra
@@ -20,7 +21,7 @@ java {
 }
 
 dependencies {
-    api("com.google.devtools.ksp:symbol-processing-api:2.1.0-1.0.29")
+    compileOnlyApi("com.google.devtools.ksp:symbol-processing-api:2.1.0-1.0.29")
 }
 
 publishing {
