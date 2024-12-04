@@ -24,16 +24,19 @@ class BuilderProcessor(
     override fun finish() {
         val indexFile = codeGenerator.createNewFile(Dependencies(true, *files.toTypedArray()), IndexPackageName, IndexFileName)
         indexFile.appendLine("package $IndexPackageName\n")
-
         for ((indexName, symbols) in classesByIndex) {
-            indexFile.appendLine("val $indexName = setOf(")
-            for (symbol in symbols) {
-                val asString = symbol.qualifiedName?.asString()
-                indexFile.appendLine("\t$asString::class,")
+            if (symbols.isEmpty()) {
+                indexFile.appendLine("val $indexName = emptySet<kotlin.reflect.KClass<Any>>()")
+            } else {
+                indexFile.appendLine("val $indexName = setOf(")
+                for (symbol in symbols) {
+                    val asString = symbol.qualifiedName?.asString()
+                    indexFile.appendLine("\t$asString::class,")
+                }
+                indexFile.appendLine(")")
             }
-            indexFile.appendLine(")\n")
+            indexFile.appendLine("\n")
         }
-
         indexFile.close()
     }
 
@@ -43,7 +46,6 @@ class BuilderProcessor(
             val allSymbols = resolver.getSymbolsWithAnnotation(annotation)
             val indexName = annotation.substringAfterLast('.')
             val validSymbols = mutableListOf<KSClassDeclaration>()
-
             for (symbol in allSymbols) {
                 if (!symbol.validate()) {
                     logger.warn("Invalid symbol in ${symbol.containingFile}")
@@ -55,7 +57,6 @@ class BuilderProcessor(
                     symbol.containingFile?.let { files.add(it) }
                 }
             }
-
             classesByIndex[indexName] = validSymbols
         }
         return deferred
