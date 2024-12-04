@@ -30,7 +30,7 @@ It is a fast, modern, Kotlin-based, and KSP-based alternative to [atteo/classind
 
 ### Add the dependency in your gradle build files
 
-- Add Jitpack as a plugin repository in `settings.gradle.kts`
+Add Jitpack as a plugin repository in `settings.gradle.kts`
 
 ```kotlin
 dependencyResolutionManagement {
@@ -42,7 +42,7 @@ dependencyResolutionManagement {
 }
 ```
 
-- In `build.gradle.kts`, add the KSP plugin if you don't have it already. Check the [official docs](https://kotlinlang.org/docs/ksp-quickstart.html) for the latest version.
+In `build.gradle.kts`, add the KSP plugin if you don't have it already. Check the [official docs](https://kotlinlang.org/docs/ksp-quickstart.html) for the latest version.
 
 ```kotlin
 plugins {
@@ -52,7 +52,7 @@ plugins {
 }
 ```
 
-- Also in `build.gradle.kts`, and a KSP dependency on `com.github.albertvaka:classindexksp`
+Also in `build.gradle.kts`, and a KSP dependency on `com.github.albertvaka:classindexksp`
 
 ```kotlin
 dependencies {
@@ -64,7 +64,7 @@ dependencies {
 
 ### Specify the Annotations to index
 
-- Define one or more annotations in your code and use them to annotate the classes that you want to index
+Define one or more annotations in your code and use them to annotate the classes that you want to index
 
 ```kotlin
 package com.example
@@ -82,7 +82,7 @@ class MyOtherClass {
 }
 ```
 
-- Pass the fully-qualified name of the annotations to index as a comma-separated string in the `com.albertvaka.classindexksp.annotations` KSP argument in your `build.gradle.kts`
+Pass the fully-qualified name of the annotations to index as a comma-separated string in the `com.albertvaka.classindexksp.annotations` KSP argument in your `build.gradle.kts`
 
 ```kotlin
 ksp {
@@ -92,7 +92,7 @@ ksp {
 
 ### Access the generated indices
 
-- KSP will generate code in the package `com.albertvaka.classindexksp` with a set of your annotated classes for each of your annotations. For example, for the `MyAnnotation` example above you can access the index as `com.albertvaka.classindexksp.MyAnnotation`. The generated code will look like this:
+KSP will generate code in the package `com.albertvaka.classindexksp` with a set of your annotated classes for each of your annotations. For example, for the `MyAnnotation` example above you can access the index as `com.albertvaka.classindexksp.MyAnnotation`. The generated code will look like this:
 
 ```kotlin
 package com.albertvaka.classindexksp
