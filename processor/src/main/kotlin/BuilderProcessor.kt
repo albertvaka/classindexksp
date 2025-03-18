@@ -29,7 +29,7 @@ class BuilderProcessor(
                 indexFile.appendLine("val $indexName = emptySet<kotlin.reflect.KClass<Any>>()")
             } else {
                 indexFile.appendLine("val $indexName = setOf(")
-                for (symbol in symbols) {
+                for (symbol in symbols.sortedBy { it.qualifiedName?.asString() }) {
                     val asString = symbol.qualifiedName?.asString()
                     indexFile.appendLine("\t$asString::class,")
                 }
